@@ -1,0 +1,132 @@
+Product Requirements Document (PRD)
+BookMate – Personal Library & Reading Tracker App
+Document Owner: Senior Software Engineer
+Last Updated: August 7, 2025
+
+1. Purpose
+BookMate is a mobile application designed for book enthusiasts who frequently buy books but forget to read them. This app helps users keep track of their personal library, organize their reading status, and avoid buying duplicate books.
+
+2. Goals and Objectives
+Provide users with a personal digital library to manage owned books.
+
+Help users track reading status (read / unread).
+
+Enable quick and intelligent input of book data using AI (image recognition).
+
+Prevent duplicate purchases by checking if a book already exists in the user’s library.
+
+3. Target Users
+Book collectors and casual readers.
+
+Users who prefer physical books but want digital tracking.
+
+Individuals who often buy books impulsively.
+
+4. Features
+4.1. Library Management
+List all books the user owns.
+
+Display book title and author.
+
+Filter/sort books by:
+
+Title
+
+Author
+
+Read status (Read / Unread)
+
+4.2. Reading Status Tracking
+Allow users to tag each book as:
+
+Read
+
+Unread
+
+Optional: Add “In Progress” status for future enhancement.
+
+4.3. Book Input
+Manual Form Input:
+
+Fields:
+
+Title (required)
+
+Author (optional)
+
+Read status (default: Unread)
+
+Camera + AI OCR Input:
+
+User takes a photo of the book cover or title page.
+
+AI (powered by Gemini) extracts title and author using image understanding and text recognition.
+
+Pre-fill form fields for user confirmation/editing.
+
+4.4. Duplicate Checker
+Manual Check:
+
+User types a book title to check if they already own it.
+
+Auto-suggest matches from their library.
+
+Camera Check with AI:
+
+User scans a book title or cover.
+
+Gemini-based AI extracts title and checks the library for duplicates.
+
+Display result accordingly: “Already in your library” or “New book.”
+
+5. User Stories
+As a reader, I want to add a new book to my digital library by taking a picture of the cover.
+
+As a user, I want to quickly check if I already own a book before buying it.
+
+As a collector, I want to see a list of all the books I own and their read status.
+
+As a reader, I want to mark a book as read after I finish it.
+
+6. Technical Requirements
+Platform: Android and iOS (React Native or Flutter recommended).
+
+OCR & AI: Use Google Gemini for image-based text recognition and semantic understanding.
+
+Database: Local (SQLite) + optional cloud sync (Firebase or Supabase).
+
+Camera Access: Required.
+
+Search Indexing: Lightweight fuzzy search for duplicate checking.
+
+7. Non-Functional Requirements
+Performance: OCR using Gemini should return results within 3 seconds.
+
+Privacy: Images are not stored unless explicitly saved.
+
+Usability: Designed for single-hand use and fast interactions.
+
+Accessibility: Supports large text mode and screen readers.
+
+8. Out of Scope (MVP)
+Book reviews or ratings.
+
+Online book database lookup (e.g., Goodreads or Google Books API).
+
+Social sharing or library syncing between users.
+
+9. KPIs / Success Metrics
+Number of books added per user.
+
+Frequency of AI-assisted inputs.
+
+Reduction in reported duplicate purchases.
+
+Weekly active users tracking book status.
+
+10. Future Considerations
+Integration with online book databases for auto-filling metadata.
+
+Reading goals or challenge tracking.
+
+Export/import library via CSV or Google Sheets.
