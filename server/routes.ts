@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertBookSchema } from "@shared/schema";
 import { extractBookDetailsFromImage } from "./services/gemini";
+import { generateBookCoverDescription, getBookCoverFromOpenLibrary } from "./services/bookCoverService";
 import multer from "multer";
 
 const upload = multer({ 
@@ -116,6 +117,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       res.status(500).json({ error: "Failed to check for duplicates" });
+    }
+  });
+
+  // Get book cover for thumbnail
+  app.get("/api/books/:id/cover", async (req, res) => {
+    try {
+      const book = await storage.getBookById(req.params.id);
+      if (!book) {
+        return res.status(404).json({ error: "Book not found" });
+      }
+
+      // Try Open Library first for actual cover images
+      const coverUrl = await getBookCoverFromOpenLibrary(book.title, book.author || undefined);
+      
+      if (coverUrl) {
+        res.json({ coverUrl, source: "openlibrary" });
+      } else {
+        // Fallback to AI-generated description for custom cover generation
+        const coverData = await generateBookCoverDescription(book.title, book.author || undefined);
+        res.json({ 
+          description: coverData.description,
+          confidence: coverData.confidence,
+          source: "ai-generated" 
+        });
+      }
+    } catch (error) {
+      console.error("Failed to get book cover:", error);
+      res.status(500).json({ error: "Failed to get book cover" });
     }
   });
 

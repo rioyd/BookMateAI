@@ -12,6 +12,13 @@ export interface DuplicateCheckResult {
   matches: Book[];
 }
 
+export interface BookCoverResult {
+  coverUrl?: string;
+  description?: string;
+  confidence?: number;
+  source: "openlibrary" | "ai-generated";
+}
+
 export const booksApi = {
   getAll: (): Promise<Book[]> =>
     fetch("/api/books").then(res => res.json()),
@@ -46,4 +53,7 @@ export const booksApi = {
 
   checkDuplicate: (title: string, author?: string): Promise<DuplicateCheckResult> =>
     apiRequest("POST", "/api/books/check-duplicate", { title, author }).then(res => res.json()),
+
+  getBookCover: (bookId: string): Promise<BookCoverResult> =>
+    fetch(`/api/books/${bookId}/cover`).then(res => res.json()),
 };

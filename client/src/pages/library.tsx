@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import BookListItem from "@/components/book-list-item";
+import BookCoverThumbnail from "@/components/book-cover-thumbnail";
 import { booksApi } from "@/lib/api";
 import type { Book } from "@shared/schema";
 
